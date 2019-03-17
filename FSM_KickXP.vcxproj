@@ -35,9 +35,9 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\SVN\VST\public.sdk\source\vst2.x\audioeffect.cpp" />
-    <ClCompile Include="..\..\SVN\VST\public.sdk\source\vst2.x\audioeffectx.cpp" />
-    <ClCompile Include="..\..\SVN\VST\public.sdk\source\vst2.x\vstplugmain.cpp" />
+    <ClCompile Include="D:\Data\SVN\VST\public.sdk\source\vst2.x\audioeffect.cpp" />
+    <ClCompile Include="D:\Data\SVN\VST\public.sdk\source\vst2.x\audioeffectx.cpp" />
+    <ClCompile Include="D:\Data\SVN\VST\public.sdk\source\vst2.x\vstplugmain.cpp" />
     <ClCompile Include="plugin.cpp" />
   </ItemGroup>
   <ItemGroup>

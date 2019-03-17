@@ -2,13 +2,13 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClCompile Include="plugin.cpp" />
-    <ClCompile Include="..\..\SVN\VST\public.sdk\source\vst2.x\audioeffect.cpp">
+    <ClCompile Include="D:\Data\SVN\VST\public.sdk\source\vst2.x\audioeffect.cpp">
       <Filter>deps</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\SVN\VST\public.sdk\source\vst2.x\audioeffectx.cpp">
+    <ClCompile Include="D:\Data\SVN\VST\public.sdk\source\vst2.x\audioeffectx.cpp">
       <Filter>deps</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\SVN\VST\public.sdk\source\vst2.x\vstplugmain.cpp">
+    <ClCompile Include="D:\Data\SVN\VST\public.sdk\source\vst2.x\vstplugmain.cpp">
       <Filter>deps</Filter>
     </ClCompile>
   </ItemGroup>

@@ -288,7 +288,7 @@ void FSM_VST_Program::set(char* _name, int start, int end,
 		for each (ParameterDescriptionWord desc in words)
 		{
 			int descriptionLength = strlen(desc.Name);
-			if (descriptionLength > 0 && presetName.length() + descriptionLength < kVstMaxProgNameLen)
+			if (descriptionLength > 0 && presetName.length() + descriptionLength < kVstMaxProgNameLen-1)
 			{
 				if (mustAddSeparator)
 				{
@@ -410,7 +410,7 @@ void FSM_VST_Plugin::setProgram(VstInt32 program)
 void FSM_VST_Plugin::setProgramName(char* name)
 {
 	//if (name != NULL && programs != NULL  && curProgram >= 0 && curProgram < kNumPrograms && programs[curProgram].name != NULL)
-	//	vst_strncpy (programs[curProgram].name, name, kVstMaxProgNameLen); 
+	//	vst_strncpy (programs[curProgram].name, name, kVstMaxProgNameLen);
 	//if (name != NULL) {
 
 	//	//dprintf("setProgramName %s\n", name);
