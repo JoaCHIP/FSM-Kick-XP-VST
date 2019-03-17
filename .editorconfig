@@ -1,0 +1,29 @@
+#
+# PLEASE INSTALL "EditorConfig" FOR VISUAL STUDIO WHEN WORKING WITH MY CODE.
+# THANK YOU VERY MUCH.
+#
+# top-most EditorConfig file
+root = true
+
+[*]
+end_of_line = lf
+indent_style = tab
+indent_size = 4
+insert_final_newline = true
+trim_trailing_whitespace = true
+charset = utf-8
+
+[*.{cpp,c,h,php}]
+indent_brace_style = Allman
+
+[*.md]
+trim_trailing_whitespace = false
+
+# config / xml like files
+[*.{config,config.dist,xml,xsd,xslt,wxs}]
+indent_size = 2
+
+# javascript like files
+[*.{js,jsx,ts,tsx,json}]
+indent_style = space
+indent_size = 2

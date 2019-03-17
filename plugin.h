@@ -56,11 +56,30 @@ enum
 class SynthParameter
 {
 public:
-	char const *Name;		// Short name: "Cutoff"
-	char const *Description;// Longer description: "Cutoff Frequency (0-7f)"
-	int MinValue;			// 0
-	int MaxValue;			// 127
-	int DefValue;			// default value for params that have MPF_STATE flag set
+	char const *Name;					// Short name: "Cutoff"
+	char const *Description;			// Longer description: "Cutoff Frequency (0-7f)"
+	char const *DescriptionWhenLow;		// Word for very low values
+	char const *DescriptionWhenHigh;	// Word for very high values
+	int MinValue;						// 0
+	int MaxValue;						// 127
+	int DefValueMin;					// lower bound of the default value (which is defined as the center point in a range)
+	int DefValueMax;					// upper bound of the default value
+
+	/// <summary>Default value for parameters that have MPF_STATE flag set. The value is the average of min and max.</summary>
+	int DefValue()
+	{
+		return (this->DefValueMin + this->DefValueMax) / 2;
+	}
+};
+
+
+class ParameterDescriptionWord
+{
+public:
+	char Name[50];
+
+	/// <summary>This value increases when the chosen value differs from the default.</summary>
+	float Weight;
 };
 
 
@@ -70,13 +89,11 @@ public:
 	float bStartFrq;
 	float bEndFrq;
 	float bBuzzAmt;
-
 	float bClickAmt;
 	float bPunchAmt;
 	float bToneDecay;
 	float bToneShape;
 	float bBDecay;
-
 	float bCDecay;
 	float bDecSlope;
 	float bDecTime;
@@ -87,27 +104,27 @@ public:
 class VoiceParameters
 {
 public:
-	float PitchLimit;
+		float PitchLimit;
 	float ThisPitchLimit;
-	float StartFrq;
+		float StartFrq;
 	float ThisStartFrq;
-	float EndFrq;
+		float EndFrq;
 	float ThisEndFrq;
-	float TDecay;
-	float ThisTDecay;
-	float TShape;
-	float ThisTShape;
-	float DSlope;
-	float ThisDSlope;
-	float DTime;
-	float ThisDTime;
-	float RSlope;
-	float ThisRSlope;
-	float BDecay;
-	float ThisBDecay;
-	float CDecay;
-	float ThisCDecay;
-	float CurVolume;
+		float ToneDecay;
+	float ThisToneDecay;
+		float ToneShape;
+	float ThisToneShape;
+		float AmplitudeDecaySlope;
+	float ThisAmplitudeDecaySlope;
+		float AmplitudeDecayTime;
+	float ThisAmplitudeDecayTime;
+		float ReleaseSlope;
+	float ThisReleaseSlope;
+		float BuzzDecay;
+	float ThisBuzzDecay;
+		float ClicknPunchDecay;
+	float ThisClicknPunchDecay;
+		float CurVolume;
 	float ThisCurVolume;
 	float ClickAmt;
 	float PunchAmt;
@@ -157,14 +174,14 @@ class FSM_VST_Program : public ProgramParameters
 {
 	friend class FSM_VST_Plugin;
 public:
-	FSM_VST_Program ();
+	FSM_VST_Program();
 	~FSM_VST_Program() {}
 	void set(char* _name, int start, int end,
 		int buzz, int click, int punch, int tDecR, int tDecS,
 		int bDecR, int CPDecR, int ADecS, int ADecT, int ARelS);
 
 private:
-	char name[kVstMaxProgNameLen+1];
+	char name[kVstMaxProgNameLen + 1];
 };
 
 
@@ -172,43 +189,45 @@ private:
 // FSM_VST_Plugin
 //------------------------------------------------------------------------------------------
 
-class FSM_VST_Plugin : public AudioEffectX {
+class FSM_VST_Plugin : public AudioEffectX
+{
 
 public:
-	FSM_VST_Plugin (audioMasterCallback audioMaster);
-	~FSM_VST_Plugin ();
+	FSM_VST_Plugin(audioMasterCallback audioMaster);
+	~FSM_VST_Plugin();
 
-	virtual void processReplacing (float** inputs, float** outputs, VstInt32 sampleFrames);
-	virtual VstInt32 processEvents (VstEvents* events);
+	virtual void processReplacing(float** inputs, float** outputs, VstInt32 sampleFrames);
+	virtual VstInt32 processEvents(VstEvents* events);
 
 	virtual void setProgram(VstInt32 program);
 	virtual void setProgramName(char* name);
 	virtual void getProgramName(char* name);
-	virtual bool beginSetProgram() { this->issetprogram = true; return false; }	///< Called before a program is loaded
+	virtual bool beginSetProgram() { this->issetprogram = true; return false; }		///< Called before a program is loaded
 	virtual bool endSetProgram() { this->issetprogram = false; return false; }		///< Called after a program was loaded
-	virtual bool getProgramNameIndexed (VstInt32 category, VstInt32 index, char* text);
+	virtual bool getProgramNameIndexed(VstInt32 category, VstInt32 index, char* text);
 
-	virtual void setParameter (VstInt32 index, float value);
-	virtual float getParameter (VstInt32 index);
-	virtual void getParameterLabel (VstInt32 index, char* label);
-	virtual void getParameterDisplay (VstInt32 index, char* text);
-	virtual void getParameterName (VstInt32 index, char* text);
+	virtual void setParameter(VstInt32 index, float value);
+	virtual float getParameter(VstInt32 index);
+	virtual void getParameterLabel(VstInt32 index, char* label);
+	virtual void getParameterDisplay(VstInt32 index, char* text);
+	virtual void getParameterName(VstInt32 index, char* text);
 
-	virtual void setSampleRate (float sampleRate);
-	virtual void setBlockSize (VstInt32 blockSize);
+	virtual void setSampleRate(float sampleRate);
+	virtual void setBlockSize(VstInt32 blockSize);
 
-	virtual bool getOutputProperties (VstInt32 index, VstPinProperties* properties);
+	virtual bool getOutputProperties(VstInt32 index, VstPinProperties* properties);
 
-	virtual bool getEffectName (char* name);
-	virtual bool getVendorString (char* text);
-	virtual bool getProductString (char* text);
-	virtual VstInt32 getVendorVersion ();
-	virtual VstInt32 canDo (char* text);
+	virtual bool getEffectName(char* name);
+	virtual bool getVendorString(char* text);
+	virtual bool getProductString(char* text);
+	virtual VstInt32 getVendorVersion();
+	virtual VstInt32 canDo(char* text);
 
-	virtual VstInt32 getNumMidiInputChannels ();
-	virtual VstInt32 getNumMidiOutputChannels ();
+	virtual VstInt32 getNumMidiInputChannels();
+	virtual VstInt32 getNumMidiOutputChannels();
 
-	FSM_VST_Program* current() {
+	FSM_VST_Program* current()
+	{
 		return &(curProgram >= 0 && curProgram < kNumPrograms ? programs[curProgram] : programs[0]);
 	}
 
