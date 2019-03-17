@@ -5,6 +5,6 @@
 
 ﻿Original code was published under LGPL and can be found at https://github.com/Buzztrax/buzzmachines/blob/master/FSM/
 
-﻿The latest binary DLL can always be found here: https://github.com/nidefawl/FSM-Kick-XP-VST/releases/
+﻿The latest binary DLL can hopefully be found here: https://github.com/JoaCHIP/FSM-Kick-XP-VST/releases/
 
-
+•This version doesn't have "inverted" parameters like the original, and has preset names.
