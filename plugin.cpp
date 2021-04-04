@@ -2,6 +2,7 @@
 #include <algorithm>
 #include "plugin.h"
 #include <list>
+#include <string>
 
 using namespace std;
 class Locker
